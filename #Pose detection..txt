@@ -1,0 +1,23 @@
+#Pose detection.
+import cv2
+import medapipe as mp
+
+cap=cv2.VideoCapture(0)
+
+mp_pose=mp.solutions.pose
+mpDraw.solutions.drawing_utils
+pose=mp_pose.Pose()
+
+while True:
+	ret,frame=cap.read()
+	fliped=cv2.flip(frame,flipCode=-1)
+	frame1 = cv2.resize(flipped,(640,480))
+	rgb_img=cv2.cvtColor(frame1,cv2.COLOR_BGR2RGB)
+	result=pose.process(rgb_img)
+	print(result.pose_landmarks)
+	mpDraw.draw_landmarks(frame1, result.pose_landmarks, mp_pose.POSE_CONNECTIONS)
+	cv2.inshow("Frame", frame1)
+
+	key = cv2.waitkey(1) & 0xFF
+	if key ==ord("q"):
+		break
